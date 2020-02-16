@@ -27,12 +27,12 @@ namespace CSharpTest.Net.Library.Test
 	public partial class TestOrdinalList
 	{
 		#region TestFixture SetUp/TearDown
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public virtual void Setup()
 		{
 		}
 
-		[TestFixtureTearDown]
+		[OneTimeTearDown]
 		public virtual void Teardown()
 		{
 		}
@@ -226,19 +226,24 @@ namespace CSharpTest.Net.Library.Test
 	public partial class TestOrdinalListNegative
 	{
         /* '-1' is now allowed * see comments on TestNegativeCeiling */
-        [Test][ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Test]
         public void TestBadCeiling()
         {
-            OrdinalList list = new OrdinalList();
-            list.Ceiling = -2;
+            Assert.Throws<ArgumentOutOfRangeException>(delegate
+            {
+                OrdinalList list = new OrdinalList();
+                list.Ceiling = -2;
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestBadArrayType()
         {
-            ICollection list = new OrdinalList();
-            list.CopyTo(new ulong[3], 0);
+            Assert.Throws<ArgumentException>(delegate
+            {
+                ICollection list = new OrdinalList();
+                list.CopyTo(new ulong[3], 0);
+            });
         }
 	}
 }

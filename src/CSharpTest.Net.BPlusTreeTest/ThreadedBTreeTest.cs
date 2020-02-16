@@ -34,13 +34,13 @@ namespace CSharpTest.Net.BPlusTree.Test
         protected static int RecordsCreated;
         protected TempFile TempFile;
         #region TestFixture SetUp/TearDown
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public virtual void Setup()
         {
             TempFile = new TempFile();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public virtual void Teardown()
         {
             TempFile.Dispose();

@@ -151,27 +151,38 @@ namespace CSharpTest.Net.Library.Test.LockingTests
             Assert.AreEqual(0, errors);
             System.Diagnostics.Trace.TraceInformation("Iterations completed: {0} * 100", iterations[0]);
         }
-        [Test, ExpectedException(typeof(TimeoutException))]
+        [Test]
         public void TestThreadedReadTimeout()
         {
-            using (ILockStrategy l = LockFactory.Create())
+            Assert.Throws<TimeoutException>(delegate
             {
-                using (new ThreadedWriter(l))
-                using (l.Read(0))
-                { }
-            }
+                using (ILockStrategy l = LockFactory.Create())
+                {
+                    using (new ThreadedWriter(l))
+                    using (l.Read(0))
+                    { }
+                }
+            });
         }
-        [Test, ExpectedException]
+
+        [Test]
         public void TestExcessiveReleaseWrite()
         {
-            using (ILockStrategy l = LockFactory.Create())
-                l.ReleaseWrite();
+            Assert.Throws<Exception>(delegate
+            {
+                using (ILockStrategy l = LockFactory.Create())
+                    l.ReleaseWrite();
+            });
         }
-        [Test, ExpectedException]
+
+        [Test]
         public void TestExcessiveReleaseRead()
         {
-            using (ILockStrategy l = LockFactory.Create())
-                l.ReleaseRead();
+            Assert.Throws<Exception>(delegate
+            {
+                using (ILockStrategy l = LockFactory.Create())
+                    l.ReleaseRead();
+            });
         }
     }
 }

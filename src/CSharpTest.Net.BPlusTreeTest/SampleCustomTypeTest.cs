@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using CSharpTest.Net.BPlusTree.Test.SampleTypes;
 using CSharpTest.Net.Collections;
-using CSharpTest.Net.Crypto;
 using CSharpTest.Net.Interfaces;
 using CSharpTest.Net.IO;
 using NUnit.Framework;
@@ -28,13 +27,13 @@ namespace CSharpTest.Net.BPlusTree.Test
     {
         protected TempFile TempFile;
         #region TestFixture SetUp/TearDown
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public virtual void Setup()
         {
             TempFile = new TempFile();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public virtual void Teardown()
         {
             TempFile.Dispose();
